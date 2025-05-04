@@ -13,6 +13,8 @@ import { mv } from './commands/mv.js';
 import { rm } from './commands/rm.js';
 import { os } from './commands/os.js';
 import { hash } from './commands/hash.js';
+import { compress } from './commands/compress.js';
+import { decompress } from './commands/decompress.js';
 import { printCurrentPath } from './service/printCurrentPath.js';
 
 const argv = process.argv;
@@ -90,11 +92,18 @@ process.stdin.on('data', async (data) => {
         hash(currentPath, args?.[0]);
         break;
       }
+      case 'compress': {
+        await compress(currentPath, args?.[0], args?.[1]);
+        break;
+      }
+      case 'decompress': {
+        await decompress(currentPath, args?.[0], args?.[1]);
+        break;
+      }
       default: { 
         console.log('Incorrect command ', stringData)
       }
     }
-
   } catch (e) {
     process.stdout.write(`\n${e.message}\n\n`);
   }
