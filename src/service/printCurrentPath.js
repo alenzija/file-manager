@@ -1,0 +1,1 @@
+export const printCurrentPath = (path) =>  `You are currently in ${path}\n`;
