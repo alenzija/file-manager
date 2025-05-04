@@ -1,5 +1,5 @@
 
-import { resolve } from 'node:path';
+import { homedir } from 'node:os';
 import { up } from './commands/up.js';
 import { cd } from './commands/cd.js';
 import { ls } from './commands/ls.js';
@@ -10,13 +10,14 @@ import { rn } from './commands/rn.js';
 import { cp } from './commands/cp.js';
 import { mv } from './commands/mv.js';
 import { rm } from './commands/rm.js';
+import { os } from './commands/os.js';
 import { printCurrentPath } from './service/printCurrentPath.js';
 
 const argv = process.argv;
 
 const userName = argv.find((item) => /^--username/.test(item))?.replace(/--username=/, '') ?? 'Anonymous';
 
-let currentPath = resolve();
+let currentPath = homedir();
 
 process.on('exit', () => {
   process.stdout.write(`\nThank you for using File Manager, ${userName}, goodbye!
@@ -77,6 +78,10 @@ process.stdin.on('data', async (data) => {
       }
       case 'rm': {
         await rm(currentPath, args?.[0]);
+        break;
+      }
+      case 'os': {
+        os(args?.[0]);
         break;
       }
       default: { 
