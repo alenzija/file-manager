@@ -1,5 +1,6 @@
 
 import { homedir } from 'node:os';
+
 import { up } from './commands/up.js';
 import { cd } from './commands/cd.js';
 import { ls } from './commands/ls.js';
@@ -11,6 +12,7 @@ import { cp } from './commands/cp.js';
 import { mv } from './commands/mv.js';
 import { rm } from './commands/rm.js';
 import { os } from './commands/os.js';
+import { hash } from './commands/hash.js';
 import { printCurrentPath } from './service/printCurrentPath.js';
 
 const argv = process.argv;
@@ -82,6 +84,10 @@ process.stdin.on('data', async (data) => {
       }
       case 'os': {
         os(args?.[0]);
+        break;
+      }
+      case 'hash': {
+        hash(currentPath, args?.[0]);
         break;
       }
       default: { 
